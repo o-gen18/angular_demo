@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { AddAttendeeComponent } from './components/add-attendee/add-attendee.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { EventListComponent } from './components/event-list/event-list.component';
+import {HttpClientModule} from "@angular/common/http";
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 
 @NgModule({
@@ -18,7 +20,8 @@ import { EventListComponent } from './components/event-list/event-list.component
     RouterModule.forChild([
       {path: '', component: EventComponent}
     ]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class EventModule { }

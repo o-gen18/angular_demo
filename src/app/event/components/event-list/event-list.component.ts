@@ -8,5 +8,8 @@ import {Attendee} from "../../../models";
 })
 export class EventListComponent {
   @Input()
-  attendees: Attendee[] = []; //Add @Input for attendees being passed in from the parent component.
+  attendees: Attendee[] | null = []; //Add @Input for attendees being passed in from the parent component.
+
+  @Input()
+  attendees$: Attendee[] | null = [];
 }

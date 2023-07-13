@@ -9,7 +9,7 @@ export class HomeComponent implements OnInit {
   title: string = 'The title';
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {console.log("HomeComponent initialized")}
 
   updateTitle(value: string) {
     console.log(`updateTitle: ${value}`);

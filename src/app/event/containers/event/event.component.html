@@ -3,3 +3,5 @@
 <!--The $event is an angular specific variable which is a generic name for what ever you emitted from the child component.-->
 
 <app-event-list [attendees]="attendees"></app-event-list>
+<p>attendee$ | async syntax</p>
+<app-event-list [attendees$]="attendees$ | async"></app-event-list>

@@ -3,10 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import {HttpClientModule} from "@angular/common/http";
+import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
+import { InMemoryDataService } from './app.db';
+import {HomeComponent} from "./home/containers/home/home.component";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -14,7 +19,9 @@ import { AppComponent } from './app.component';
       //{ path: '', pathMatch: 'full', redirectTo: 'home' },
       { path: 'event', loadChildren: ()=> import('./event/event.module').then(x => x.EventModule) },
       { path: 'home', loadChildren: ()=> import('./home/home.module').then(x => x.HomeModule) }
-    ])
+    ]),
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService,{ delay: 100 })
   ],
   providers: [],
   bootstrap: [AppComponent]
