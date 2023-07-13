@@ -3,19 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/containers/home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      { path: '', pathMatch: 'full', redirectTo: 'home' },
-      { path: 'home', component: HomeComponent },
-      { path: 'event', loadChildren: ()=> import('./event/event.module').then(x => x.EventModule) }
+      //{ path: '', pathMatch: 'full', redirectTo: 'home' },
+      { path: 'event', loadChildren: ()=> import('./event/event.module').then(x => x.EventModule) },
+      { path: 'home', loadChildren: ()=> import('./home/home.module').then(x => x.HomeModule) }
     ])
   ],
   providers: [],
