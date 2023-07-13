@@ -1,2 +1,3 @@
 <p>event works!</p>
-<app-add-attendee></app-add-attendee>
+<app-add-attendee (addAttendee)="addAttendee($event)"></app-add-attendee>
+<!--The $event is an angular specific variable which is a generic name for what ever you emitted from the child component.-->
