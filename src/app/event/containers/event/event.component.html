@@ -4,4 +4,5 @@
 
 <app-event-list [attendees]="attendees"></app-event-list>
 <p>attendee$ | async syntax</p>
-<app-event-list [attendees$]="attendees$ | async"></app-event-list>
+<app-event-list *ngIf="!(spinner$ | async)" [attendees$]="attendees$ | async"></app-event-list>
+<div *ngIf="spinner$ | async">spinner ... </div>

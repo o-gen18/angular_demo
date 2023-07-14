@@ -21,7 +21,7 @@ export class AddAttendeeComponent {
     attending: true,
     guests: 0
     };
-    console.log('TCL: AddAttendeeComponent -> submit -> attendee', attendee);
+    console.log('Emit add attendee event ... ', attendee);
     this.addAttendee.emit(attendee as Attendee); //Emit add attendee event
   }
 }

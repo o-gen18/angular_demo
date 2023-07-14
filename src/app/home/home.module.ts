@@ -4,9 +4,6 @@ import {RouterModule} from "@angular/router";
 import {HomeComponent} from "./containers/home/home.component";
 
 @NgModule({
-  declarations: [
-    HomeComponent
-  ],
   imports: [
     CommonModule,
     RouterModule.forChild([

@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {Attendee} from "../../../models";
 import {EventService} from "../../services/event.service";
 import {Observable} from "rxjs";
+import {select, Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-event',
@@ -11,8 +12,10 @@ import {Observable} from "rxjs";
 export class EventComponent implements OnInit {
   attendees: Attendee[] = [];
   attendees$: Observable<Attendee[]> = new Observable<Attendee[]>();
+  spinner$: Observable<boolean> = new Observable<boolean>();
 
-  constructor(private eventService: EventService) {
+  constructor(private store: Store<any>, private eventService: EventService) {
+    console.log("EventComponent constructor!")
     //In Angular, when you define a constructor parameter with an access modifier
     // (such as private, public, or protected),
     // TypeScript automatically creates and initializes a class property with the same name.
@@ -21,14 +24,21 @@ export class EventComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log("EventComponent initializing...")
     this.getAttendees();
     this.getAttendees$();
-    console.log("EventComponent initialized")
+    this.spinner$ = this.store.pipe(select(state => state.spinner.isOn));
   }
 
   addAttendee(attendee: Attendee) {
-    this.eventService.addAttendee(attendee).subscribe(() => this.getAttendees())
-    console.log('TCL: EventComponent -> addAttendee -> this.attendees', this.attendees);
+    console.log('Starting spinner...');
+    this.store.dispatch({ type: 'startSpinner '});
+    console.log('Adding attendee ... ', this.attendees);
+    this.eventService.addAttendee(attendee).subscribe(() => {
+      console.log('Attendee Observable subscription action... stopping spinner');
+      this.store.dispatch( { type: 'stopSpinner' })
+      this.getAttendees();
+    })
   }
 
   getAttendees() {
