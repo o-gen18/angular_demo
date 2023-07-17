@@ -3,6 +3,8 @@ import {Attendee} from "../../../models";
 import {EventService} from "../../services/event.service";
 import {Observable} from "rxjs";
 import {select, Store} from "@ngrx/store";
+import {State} from "../../../state/state";
+import {StartSpinner, StopSpinner} from "../../../state/spinner/spinner.actions";
 
 @Component({
   selector: 'app-event',
@@ -14,7 +16,8 @@ export class EventComponent implements OnInit {
   attendees$: Observable<Attendee[]> = new Observable<Attendee[]>();
   spinner$: Observable<boolean> = new Observable<boolean>();
 
-  constructor(private store: Store<any>, private eventService: EventService) {
+  constructor(private store: Store<State>,
+              private eventService: EventService) {
     console.log("EventComponent constructor!")
     //In Angular, when you define a constructor parameter with an access modifier
     // (such as private, public, or protected),
@@ -27,16 +30,19 @@ export class EventComponent implements OnInit {
     console.log("EventComponent initializing...")
     this.getAttendees();
     this.getAttendees$();
-    this.spinner$ = this.store.pipe(select(state => state.spinner.isOn));
+    this.spinner$ = this.store.pipe(select(state => {
+      console.log("Store select spinner state... ")
+      return state.spinner.isOn;
+    }));
   }
 
   addAttendee(attendee: Attendee) {
     console.log('Starting spinner...');
-    this.store.dispatch({ type: 'startSpinner '});
+    this.store.dispatch(new StartSpinner());
     console.log('Adding attendee ... ', this.attendees);
     this.eventService.addAttendee(attendee).subscribe(() => {
       console.log('Attendee Observable subscription action... stopping spinner');
-      this.store.dispatch( { type: 'stopSpinner' })
+      this.store.dispatch( new StopSpinner())
       this.getAttendees();
     })
   }

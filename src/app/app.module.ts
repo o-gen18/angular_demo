@@ -7,8 +7,9 @@ import {HttpClientModule} from "@angular/common/http";
 import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import { InMemoryDataService } from './app.db';
 import {HomeComponent} from "./home/containers/home/home.component";
-import {spinnerReducer} from "./state/spinner/spinner.reducer";
+import {initialState, spinnerReducer} from "./state/spinner/spinner.reducer";
 import {Store, StoreModule} from "@ngrx/store";
+import {State} from "./state/state";
 
 @NgModule({
   declarations: [
