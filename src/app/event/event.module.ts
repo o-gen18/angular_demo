@@ -9,6 +9,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import {StoreModule} from "@ngrx/store";
 import {spinnerReducer} from "../state/spinner/spinner.reducer";
+import {effects, reducers} from "./state";
+import {EffectsModule} from "@ngrx/effects";
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import {spinnerReducer} from "../state/spinner/spinner.reducer";
       {path: '', component: EventComponent}
     ]),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forFeature('event', reducers),
+    EffectsModule.forFeature(effects)
   ]
 })
 export class EventModule { }

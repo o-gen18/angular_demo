@@ -3,9 +3,11 @@ import {Attendee} from "../../../models";
 import {EventService} from "../../services/event.service";
 import {Observable} from "rxjs";
 import {select, Store} from "@ngrx/store";
-import {State} from "../../../state/state";
 import {StartSpinner, StopSpinner} from "../../../state/spinner/spinner.actions";
 import {getSpinner} from "../../../state/spinner/spinner.selectors";
+import {State} from "../../state";
+import {getAttendeesSelector, getAttendeeState} from "../../state/attendees/attendees.selector";
+import {LoadAttendees} from "../../state/attendees/attendees.actions";
 
 @Component({
   selector: 'app-event',
@@ -35,6 +37,9 @@ export class EventComponent implements OnInit {
       console.log("Store getting spinner state... ", state)
       return getSpinner(state);
     }));
+    //this.attendees$ = this.store.pipe(select(state => state.event.attendees.attendees)) <- was before selector
+    this.attendees$ = this.store.pipe(select(getAttendeesSelector))
+    this.store.dispatch(new LoadAttendees())
   }
 
   addAttendee(attendee: Attendee) {

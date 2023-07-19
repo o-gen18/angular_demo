@@ -11,6 +11,7 @@ import {initialState, spinnerReducer} from "./state/spinner/spinner.reducer";
 import {Store, StoreModule} from "@ngrx/store";
 import {State} from "./state/state";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {EffectsModule} from "@ngrx/effects";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
     StoreModule.forRoot({ spinner: spinnerReducer}),
     StoreDevtoolsModule.instrument({
       name: 'NgRx Demo App'
-    })
+    }),
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

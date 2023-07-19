@@ -25,7 +25,8 @@ describe('EventComponent', () => {
         {
           provide: Store,
           useValue: {
-            pipe: () => {}
+            pipe: () => {},
+            dispatch: () => {}
           }
         }
       ],
